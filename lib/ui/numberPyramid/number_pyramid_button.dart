@@ -45,9 +45,7 @@ class PyramidNumberButton extends StatelessWidget {
       },
       child: Container(
         width: width,
-
         alignment: Alignment.center,
-
         decoration: ShapeDecoration(
           gradient: numPyramidCellModel.isHint
               ? LinearGradient(
@@ -76,13 +74,11 @@ class PyramidNumberButton extends StatelessWidget {
             ),
           ),
         ),
-
         child: getTextWidget(
-            Theme.of(context).textTheme.titleSmall!.copyWith(
-
-                color: Colors.black)
-
-            ,
+            Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: Colors.black),
             numPyramidCellModel.isHidden
                 ? numPyramidCellModel.text
                 : numPyramidCellModel.numberOnCell.toString(),

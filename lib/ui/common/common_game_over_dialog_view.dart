@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_share/flutter_share.dart';
+// import 'package:flutter_share/flutter_share.dart';
 import 'package:mathspuzzle/core/app_constant.dart';
 import 'package:mathspuzzle/ui/common/common_score_widget.dart';
 import 'package:mathspuzzle/ui/dashboard/dashboard_view.dart';
 import 'package:mathspuzzle/utility/Constants.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../ads/AdsFile.dart';
@@ -71,10 +72,6 @@ class CommonGameOverDialogView extends StatelessWidget {
         Navigator.pop(context);
       },
       homeClick: () {
-
-
-
-
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -109,12 +106,23 @@ class CommonGameOverDialogView extends StatelessWidget {
     // );
   }
 
-  share() async {
-    await FlutterShare.share(
-        title: 'MathsPuzzle',
-        text: 'hey I just scored $score in MathIQ I now challenge my friend to match it \n ${getAppLink()}',
-        // text: 'Your highest score is $score\n ${getAppLink()}',
-        linkUrl: '',
-        chooserTitle: 'Share');
+  share() {
+    final String message =
+        'hey I just scored $score in MathIQ I now challenge my friend to match it \n ${getAppLink()}';
+
+    Share.share(
+      message,
+      subject: 'MathsPuzzle',
+    );
   }
+
+  // share() async {
+  //   await FlutterShare.share(
+  //       title: 'MathsPuzzle',
+  //       text:
+  //           'hey I just scored $score in MathIQ I now challenge my friend to match it \n ${getAppLink()}',
+  //       // text: 'Your highest score is $score\n ${getAppLink()}',
+  //       linkUrl: '',
+  //       chooserTitle: 'Share');
+  // }
 }

@@ -1,10 +1,9 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:launch_review/launch_review.dart';
+// import 'package:launch_review/launch_review.dart';
 import 'package:mathspuzzle/ui/resizer/fetch_pixels.dart';
 import 'package:mathspuzzle/ui/resizer/widget_utils.dart';
 import 'package:tuple/tuple.dart';
@@ -303,12 +302,8 @@ class _SettingScreen extends State<SettingScreen> {
                       child: RateViewDialog(
                         colorTuple: Tuple2(model, 0),
                         function: () async {
-
-
-                          LaunchReview.launch(androidAppId: pkgName,
-                              iOSAppId: "585027354");
-
-
+                          // LaunchReview.launch(androidAppId: pkgName,
+                          //     iOSAppId: "585027354");
                         },
                       ),
                     ),
@@ -327,7 +322,6 @@ class _SettingScreen extends State<SettingScreen> {
                       MaterialPageRoute(
                         builder: (context) => FeedbackScreen(),
                       ));
-
                 }),
             getDivider(),
             getCell(
@@ -346,8 +340,6 @@ class _SettingScreen extends State<SettingScreen> {
     if (!await launchUrl(Uri.parse(privacyURL)))
       throw 'Could not launch $privacyURL';
   }
-
-
 
   getCell({required String string, required Function function}) {
     return InkWell(
@@ -386,7 +378,6 @@ class _SettingScreen extends State<SettingScreen> {
 
   getTitleText(String string) {
     TextStyle theme = Theme.of(context).textTheme.titleSmall!;
-
 
     return getCustomFont(string, 30, theme.color!, 1,
         fontWeight: FontWeight.w600);

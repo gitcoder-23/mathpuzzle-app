@@ -5,13 +5,14 @@ import 'package:figma_squircle/figma_squircle.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_share/flutter_share.dart';
+// import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mathspuzzle/ui/app/game_provider.dart';
 import 'package:mathspuzzle/core/app_constant.dart';
 import 'package:mathspuzzle/ui/app/theme_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/app_assets.dart';
 import '../ui/app/svg_modify.dart';
@@ -82,7 +83,6 @@ void showCustomToast(String texts, BuildContext context) {
       fontSize: 12.0);
 }
 
-
 Widget getHintButtonWidget(
     BuildContext context, String s, var color, Function function,
     {bool? isBorder, Color? textColor, Color? borderColor}) {
@@ -94,13 +94,13 @@ Widget getHintButtonWidget(
     child: Container(
       height: height,
       margin:
-      EdgeInsets.symmetric(vertical: getScreenPercentSize(context, 1.2)),
+          EdgeInsets.symmetric(vertical: getScreenPercentSize(context, 1.2)),
       decoration: isBorder == null
           ? getDefaultDecoration(radius: radius, bgColor: color)
           : getDefaultDecorationWithBorder(
-          radius: radius,
-          borderColor: borderColor == null ? color : borderColor,
-          bgColor: Colors.transparent),
+              radius: radius,
+              borderColor: borderColor == null ? color : borderColor,
+              bgColor: Colors.transparent),
       child: Stack(
         children: [
           ClipRRect(
@@ -150,9 +150,6 @@ Widget getHintButtonWidget(
   );
 }
 
-
-
-
 Widget getTextWidgetWithMaxLine(TextStyle textStyle, String text,
     TextAlign textAlign, double textSizes, int maxLine) {
   return Text(
@@ -168,10 +165,6 @@ Widget getTextWidgetWithMaxLine(TextStyle textStyle, String text,
     textAlign: textAlign,
   );
 }
-
-
-
-
 
 Widget getTextWidget(
     TextStyle textStyle, String text, TextAlign textAlign, double textSizes,
@@ -361,7 +354,6 @@ getHintIcon({required Function function, Color? color, bool? isWhite}) {
     ),
   );
 }
-
 
 getDefaultIconWidget(BuildContext context,
     {Function? function,
@@ -554,17 +546,24 @@ getSettingWidget(BuildContext context, {Function? function}) {
   );
 }
 
-share() async {
-  await FlutterShare.share(
-      title: 'Math Matrix',
-      text: getAppLink(),
-      linkUrl: '',
-      chooserTitle: 'Share');
+// share() async {
+//   await FlutterShare.share(
+//       title: 'Math Matrix',
+//       text: getAppLink(),
+//       linkUrl: '',
+//       chooserTitle: 'Share');
+// }
+
+share() {
+  Share.share(
+    getAppLink(),
+    subject: 'Math Matrix',
+  );
 }
 
 getShareWidget(BuildContext context, {Function? function}) {
   return Padding(
-    padding:  EdgeInsets.only(right: FetchPixels.getPixelWidth(22)),
+    padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(22)),
     child: InkWell(
       onTap: () {
         share();
@@ -593,18 +592,18 @@ getScoreWidget(BuildContext context, {Color? color, bool? isCenter}) {
         width: FetchPixels.getPixelHeight(30),
         // width: getWidthPercentSize(context, 1.5),
       ),
-
-      GetBuilder<DashboardProvider>(builder: (controller) {
-        return getTextWidget(
-            Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.w600,
-                color: color != null ? color : null),
-            controller.overallScore.value.toString(),
-            // model.overallScore.toString(),
-            TextAlign.start,
-            FetchPixels.getPixelHeight(53));
-      },)
-
+      GetBuilder<DashboardProvider>(
+        builder: (controller) {
+          return getTextWidget(
+              Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: color != null ? color : null),
+              controller.overallScore.value.toString(),
+              // model.overallScore.toString(),
+              TextAlign.start,
+              FetchPixels.getPixelHeight(53));
+        },
+      )
     ],
   );
 }
@@ -696,9 +695,7 @@ Widget getCommonMainWidget(
   var circle = getScreenPercentSize(context, 12);
   var margin = getHorizontalSpace(context);
 
-
   final GameProvider _controller = Get.find<GameProvider>();
-
 
   return Stack(
     children: [
@@ -761,7 +758,6 @@ Widget getCommonMainWidget(
                   ),
                 ),
               ),
-
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(top: getPercentSize(mainHeight, 35)),
@@ -803,23 +799,26 @@ Widget getCommonMainWidget(
                                 SizedBox(
                                   width: getWidthPercentSize(context, 1.2),
                                 ),
-
                                 GetBuilder<GameProvider>(
-                                  init: GameProvider(gameCategoryType: gameCategoryType),builder: (controller) {
-                                  int oldScore = controller.oldScore.toInt();
-                                  int currentScore = controller.currentScore.toInt();
-                                  return getTextWidget(
-                                      Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                          fontWeight: FontWeight.w600),
-                                      oldScore > currentScore
-                                          ? currentScore.toString()
-                                          : oldScore.toString(),
-                                      TextAlign.center,
-                                      getPercentSize(mainHeight, 6));
-                                },)
+                                  init: GameProvider(
+                                      gameCategoryType: gameCategoryType),
+                                  builder: (controller) {
+                                    int oldScore = controller.oldScore.toInt();
+                                    int currentScore =
+                                        controller.currentScore.toInt();
+                                    return getTextWidget(
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w600),
+                                        oldScore > currentScore
+                                            ? currentScore.toString()
+                                            : oldScore.toString(),
+                                        TextAlign.center,
+                                        getPercentSize(mainHeight, 6));
+                                  },
+                                )
                               ],
                             ),
                           ),
@@ -838,7 +837,6 @@ Widget getCommonMainWidget(
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -1010,7 +1008,8 @@ String rightSound = 'right.mp3';
 String wrongSound = 'wrong.mp3';
 String gameOverSound = 'gameover.mp3';
 
-String privacyURL = 'https://mediumseagreen-mink-ynqxlzgkeesrngj9.builder-preview.com/privacy-policy';
+String privacyURL =
+    'https://mediumseagreen-mink-ynqxlzgkeesrngj9.builder-preview.com/privacy-policy';
 String feedbackMail = 'bondzfi@gmail.com';
 
 setSound(bool rem) async {

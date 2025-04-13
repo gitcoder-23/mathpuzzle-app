@@ -52,9 +52,6 @@ xmlns:tools="http://schemas.android.com/tools" package="com.company.mathspuzzle"
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="default_notification_channel_id"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -94,6 +91,30 @@ xmlns:tools="http://schemas.android.com/tools" package="com.company.mathspuzzle"
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_notification_channel_id"/>
+
+
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+
+
+
+
+
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
